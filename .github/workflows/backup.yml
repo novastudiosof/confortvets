@@ -1,0 +1,31 @@
+name: Respaldo semanal
+
+# Cada domingo, 10 p. m. en Colombia (03:00 UTC del lunes). Guarda el respaldo
+# cifrado como artefacto de GitHub durante 90 días. También se puede lanzar a
+# mano desde Actions > Respaldo semanal > Run workflow.
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Respaldar y cifrar
+        run: node scripts/backup.mjs backups
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          BACKUP_PASSWORD: ${{ secrets.BACKUP_PASSWORD }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: respaldo-confortvets
+          path: backups/*.enc
+          retention-days: 90

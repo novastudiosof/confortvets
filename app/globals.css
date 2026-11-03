@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f6fb;
+  --foreground: #0f172a;
+
+  /* Marca de ConfortVets. El color primario lo sobrescribe cada organización
+     (lib/brand + layout del dashboard). */
+  --color-primary: #3b82f6;
+  --color-on-primary: #ffffff;
+  --color-accent: #2dd4bf;
+  --color-navy: #04061a; /* mismo fondo que el logo de ConfortVets */
+  --color-navy-soft: #0e1432;
+  --color-surface: #ffffff;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+  --color-whatsapp: #25d366;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--color-primary);
+  --color-brand-dark: color-mix(in srgb, var(--color-primary) 82%, black);
+  --color-brand-soft: color-mix(in srgb, var(--color-primary) 12%, white);
+  --color-brand-on: var(--color-on-primary);
+  --color-brand-accent: var(--color-accent);
+  --color-brand-navy: var(--color-navy);
+  --color-brand-navy-soft: var(--color-navy-soft);
+  --color-brand-ink: var(--color-text);
+  --color-brand-muted: var(--color-text-muted);
+  --color-brand-border: var(--color-border);
+  --color-brand-success: var(--color-success);
+  --color-brand-warning: var(--color-warning);
+  --color-brand-danger: var(--color-danger);
+  --color-brand-whatsapp: var(--color-whatsapp);
+  --radius-brand-sm: var(--radius-sm);
+  --radius-brand-md: var(--radius-md);
+  --radius-brand-lg: var(--radius-lg);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Documentos imprimibles (fórmula, carné, certificado, autorización) */
+@media print {
+  @page {
+    size: letter;
+    margin: 14mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
